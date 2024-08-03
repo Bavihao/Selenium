@@ -24,7 +24,7 @@ class Test_all_SO(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.delete_all_cookies()
-        self.driver.get("http://10.220.40.220:2468")
+        self.driver.get("http://")#link test
         time.sleep(3)
 
     def test_all(self):
@@ -43,15 +43,15 @@ class Test_all_SO(unittest.TestCase):
         for cookie in cookies:
             cookie_str += f"{cookie['name']}={cookie['value']};"
         headers['Cookie'] = cookie_str
-        response = requests.get("https://lh-account.cnsbg.efoxconn.com/captcha", headers=headers)
+        response = requests.get("https://link captcha", headers=headers)
         if response.status_code == 200:
             with open(image_path, 'wb') as f:
                 f.write(response.content)
         
     def login_valid_credentials(self):
         #send giá trị đăng nhập
-        username = "V1032437"
-        password = "foxconn168!^"
+        username = "user_name"
+        password = "password"
         captcha = send_image_to_api('static/images/captcha.jpg')
         print("Captcha::: ", captcha.get('text'))
         username_input = self.driver.find_element(By.CLASS_NAME, 'form-control')
@@ -70,7 +70,7 @@ class Test_all_SO(unittest.TestCase):
         time.sleep(3)
 
     def create_order_so(self, sleep = 0.5):
-        path_pdf = 'D:\Hao\Selenium\Selenium-Project\static\pdf\V1036102.pdf'
+        path_pdf = 'path_pdf_send'
         #khai báo ngẫu nhiên các biến trong bảng nhập
         bu = 'bu_test'
         sales_office = 'sales_office_test'
@@ -270,7 +270,7 @@ class Test_all_debit(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.delete_all_cookies()
-        self.driver.get("http://10.220.40.220:2021")
+        self.driver.get("http://link test")
         time.sleep(3)
 
     def test_all(self):
@@ -296,15 +296,15 @@ class Test_all_debit(unittest.TestCase):
         for cookie in cookies:
             cookie_str += f"{cookie['name']}={cookie['value']};"
         headers['Cookie'] = cookie_str
-        response = requests.get("https://lh-account.cnsbg.efoxconn.com/captcha", headers=headers)
+        response = requests.get("link get captcha", headers=headers)
         if response.status_code == 200:
             with open(image_path, 'wb') as f:
                 f.write(response.content)
         
     def login_valid_credentials(self,sleep=2):
         #send giá trị đăng nhập
-        username = "V1032437"
-        password = "foxconn168!^"
+        username = "username"
+        password = "password"
         captcha = send_image_to_api('static/images/captcha.jpg')
         print("Captcha::: ", captcha.get('text'))
         username_input = self.driver.find_element(By.CLASS_NAME, 'form-control')
@@ -354,7 +354,7 @@ class Test_all_debit(unittest.TestCase):
         self.driver.quit()
 
 def send_image_to_api(image_path):
-    url = 'http://10.220.40.186:5567/api/read_captcha'
+    url = 'post image captcha'
     files = {'image': open(image_path, 'rb')}
     try:
         response = requests.post(url, files=files)
@@ -366,22 +366,6 @@ def send_image_to_api(image_path):
     except requests.exceptions.RequestException as e:
         return {"error": f"Lỗi: {e}"}
     
-# class test_golden_file(unittest.TestCase):
-#     def setUp(self):
-#         self.driver = webdriver.Chrome()
-#         self.driver.get("http://10.220.40.186:5566")
-
-#     def test_golden_file(self):
-#         text = self.driver.find_element(By.XPATH , '/html/body/div[1]/div/p[1]')
-#         print("text test ::: ",text.text)
-#         ma_nv = 'V1013922'
-#         # input_value_manv = self.driver.find_element(By.ID, "ma_nv")
-#         input_value_manv = self.driver.find_element(By.XPATH, '//*[@id="ma_nv"]')
-#         input_value_manv.send_keys(ma_nv)
-#         submit_manv = self.driver.find_element(By.XPATH , "/html/body/div[1]/div[1]/form/button")
-#         submit_manv.click()
-#         time.sleep(2)
-
 if __name__ == "__main__":
     loader = unittest.TestLoader()
     suite = unittest.TestSuite()
